@@ -1,6 +1,7 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
 import mysql.connector
+import pymysql
 
 app = FastAPI()
 
@@ -16,18 +17,28 @@ async def root():
 
 @app.get("/data")
 async def get_marked_systems():
-    cnx = mysql.connector.connect(user='root', password='Jyfcd452Xe3tmMsFLYDY', host='containers-us-west-32.railway.app:5522', database='railway')
-    cursor = cnx.cursor()
+    
+    connection = pymysql.connect( host='containers-us-west-32.railway.app:5522', user='root', passwd='Jyfcd452Xe3tmMsFLYDY', db='railway' )
+    with connection.cursor() as cursor:
+        # Read a single record
+        sql = "SELECT `name` FROM `marked_systems` WHERE `id`=%s"
+        cursor.execute(sql, ('1',))
+        result = cursor.fetchone()
+        print(result)
+    # doQuery( myConnection )
+    # myConnection.close()
+    # cnx = mysql.connector.connect(user='root', password='Jyfcd452Xe3tmMsFLYDY', host='containers-us-west-32.railway.app:5522', database='railway')
+    # cursor = cnx.cursor()
 
-    query = 'SELECT * FROM marked_systems'
-    cursor.execute(query)
+    # query = 'SELECT * FROM marked_systems'
+    # cursor.execute(query)
 
-    rows = []
-    for row in cursor:
-        print(row)
-        rows.append(row)
+    # rows = []
+    # for row in cursor:
+    #     print(row)
+    #     rows.append(row)
 
-    return {"data": rows}
+    return {"data": result}
     cursor.close()
     cnx.close()
 
