@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from pydantic import BaseModel
 # import mysql.connector
 import pymysql
-from fastapi.middleware.cors import CORSMiddleware
+from starlette.middleware.cors import CORSMiddleware
 
 middleware = [
     Middleware(
