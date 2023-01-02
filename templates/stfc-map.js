@@ -12,7 +12,7 @@ let marked_systems = {
     }
 }
 
-fetch('localhost:8080/', {
+fetch('localhost:80800000/', {
     method: 'GET',
     headers: {
         'Accept': 'application/json',
