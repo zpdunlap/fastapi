@@ -18,7 +18,7 @@ async def root():
 @app.get("/data")
 async def get_marked_systems():
     
-    connection = pymysql.connect( host='containers-us-west-32.railway.app:5522', user='root', passwd='Jyfcd452Xe3tmMsFLYDY', db='railway' )
+    connection = pymysql.connect( host='containers-us-west-32.railway.app', user='root', passwd='Jyfcd452Xe3tmMsFLYDY', db='railway' )
     with connection.cursor() as cursor:
         # Read a single record
         sql = "SELECT `name` FROM `marked_systems` WHERE `id`=%s"
