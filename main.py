@@ -5,9 +5,6 @@ import pymysql
 
 app = FastAPI()
 
-
-
-
 class Msg(BaseModel):
     msg: str
 
