@@ -1,7 +1,10 @@
 from fastapi import FastAPI
 from pydantic import BaseModel
+import mysql.connector
 
 app = FastAPI()
+
+
 
 class Msg(BaseModel):
     msg: str
@@ -11,6 +14,22 @@ class Msg(BaseModel):
 async def root():
     return {"message": "Hello World. Welcome to FastAPI!"}
 
+@app.get("/data")
+async def get_marked_systems():
+    cnx = mysql.connector.connect(user='root', password='Jyfcd452Xe3tmMsFLYDY', host='containers-us-west-32.railway.app:5522', database='railway')
+    cursor = cnx.cursor()
+
+    query = 'SELECT * FROM marked_systems'
+    cursor.execute(query)
+
+    rows = []
+    for row in cursor:
+        print(row)
+        rows.append(row)
+
+    return {"data": rows}
+    cursor.close()
+    cnx.close()
 
 @app.get("/path")
 async def demo_get():
